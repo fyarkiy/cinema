@@ -21,7 +21,7 @@ public class OrdersDaoImpl implements OrdersDao {
         try {
             session = HibernateUtil.getSessionFactory().openSession();
             transaction = session.beginTransaction();
-            session.persist(order);
+            session.save(order);
             transaction.commit();
             return order;
         } catch (Exception e) {
@@ -39,16 +39,11 @@ public class OrdersDaoImpl implements OrdersDao {
     @Override
     public List<Orders> getOrderHistory(User user) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query<Orders> ordersQuery = session.createQuery("from Orders o "
+            Query<Orders> ordersQuery = session.createQuery("SELECT DISTINCT o from Orders o "
                     + " join fetch o.tickets t "
-                    + " join fetch t.movieSession movieSession "
-                    + " join fetch t.movieSession.movie movie "
-                    + " join fetch t.movieSession.cinemaHall cinemaHall "
                     + " join fetch o.user where o.user =: user", Orders.class);
             ordersQuery.setParameter("user", user);
             return ordersQuery.getResultList();
-        } catch (Exception e) {
-            throw new DataProcessingException("Can't get all orders for user " + user, e);
         }
     }
 }
