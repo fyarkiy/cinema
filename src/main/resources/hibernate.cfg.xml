@@ -19,5 +19,6 @@
         <mapping class="com.cinema.model.User"/>
         <mapping class="com.cinema.model.ShoppingCart"/>
         <mapping class="com.cinema.model.Ticket"/>
+        <mapping class="com.cinema.model.Orders"/>
     </session-factory>
 </hibernate-configuration>
