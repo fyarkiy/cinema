@@ -13,7 +13,6 @@ import org.hibernate.query.Query;
 
 @Dao
 public class OrdersDaoImpl implements OrdersDao {
-
     @Override
     public Orders add(Orders order) {
         Session session = null;
