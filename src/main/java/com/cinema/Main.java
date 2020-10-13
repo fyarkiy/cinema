@@ -4,7 +4,7 @@ import com.cinema.lib.Injector;
 import com.cinema.model.CinemaHall;
 import com.cinema.model.Movie;
 import com.cinema.model.MovieSession;
-import com.cinema.model.Orders;
+import com.cinema.model.Order;
 import com.cinema.model.User;
 import com.cinema.security.AuthenticationService;
 import com.cinema.service.CinemaHallService;
@@ -89,10 +89,10 @@ public class Main {
         shoppingCartService.clear(shoppingCartService.getByUser(userA));
 
         OrdersService ordersService = (OrdersService) injector.getInstance(OrdersService.class);
-        Orders order = ordersService.completeOrder(shoppingCartService
+        Order order = ordersService.completeOrder(shoppingCartService
                 .getByUser(userMa).getTickets(), userMa);
         shoppingCartService.addSession(afternoonSession, userMa);
-        Orders orderSecond = ordersService.completeOrder(shoppingCartService
+        Order orderSecond = ordersService.completeOrder(shoppingCartService
                 .getByUser(userMa).getTickets(), userMa);
         ordersService.getOrderHistory(userMa).forEach(System.out::println);
 

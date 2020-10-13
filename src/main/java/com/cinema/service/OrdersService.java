@@ -1,12 +1,12 @@
 package com.cinema.service;
 
-import com.cinema.model.Orders;
+import com.cinema.model.Order;
 import com.cinema.model.Ticket;
 import com.cinema.model.User;
 import java.util.List;
 
 public interface OrdersService {
-    Orders completeOrder(List<Ticket> tickets, User user);
+    Order completeOrder(List<Ticket> tickets, User user);
 
-    List<Orders> getOrderHistory(User user);
+    List<Order> getOrderHistory(User user);
 }
