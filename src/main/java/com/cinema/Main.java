@@ -79,7 +79,6 @@ public class Main {
         authenticationService.register("ma@gmail.com", "dcba");
         UserService userService = (UserService) injector.getInstance(UserService.class);
         User userMa = userService.findByEmail("ma@gmail.com").get();
-        authenticationService.register("ma@gmail.com", "dcba"); // test for duplicate entry
         ShoppingCartService shoppingCartService =
                 (ShoppingCartService) injector.getInstance((ShoppingCartService.class));
         shoppingCartService.addSession(morningSession, userMa);
