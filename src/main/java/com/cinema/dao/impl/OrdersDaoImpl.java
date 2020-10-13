@@ -3,7 +3,7 @@ package com.cinema.dao.impl;
 import com.cinema.dao.OrdersDao;
 import com.cinema.exception.DataProcessingException;
 import com.cinema.lib.Dao;
-import com.cinema.model.Orders;
+import com.cinema.model.Order;
 import com.cinema.model.User;
 import com.cinema.util.HibernateUtil;
 import java.util.List;
@@ -14,7 +14,7 @@ import org.hibernate.query.Query;
 @Dao
 public class OrdersDaoImpl implements OrdersDao {
     @Override
-    public Orders add(Orders order) {
+    public Order add(Order order) {
         Session session = null;
         Transaction transaction = null;
         try {
@@ -36,11 +36,11 @@ public class OrdersDaoImpl implements OrdersDao {
     }
 
     @Override
-    public List<Orders> getOrderHistory(User user) {
+    public List<Order> getOrderHistory(User user) {
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query<Orders> ordersQuery = session.createQuery("SELECT DISTINCT o from Orders o "
-                    + " join fetch o.tickets t "
-                    + " join o.user where o.user =: user", Orders.class);
+            Query<Order> ordersQuery = session.createQuery("SELECT DISTINCT o FROM Order o "
+                    + " JOIN FETCH o.tickets t "
+                    + " JOIN o.user WHERE o.user =: user", Order.class);
             ordersQuery.setParameter("user", user);
             return ordersQuery.getResultList();
         }
