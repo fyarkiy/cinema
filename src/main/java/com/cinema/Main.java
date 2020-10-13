@@ -4,13 +4,11 @@ import com.cinema.lib.Injector;
 import com.cinema.model.CinemaHall;
 import com.cinema.model.Movie;
 import com.cinema.model.MovieSession;
-import com.cinema.model.Order;
 import com.cinema.model.User;
 import com.cinema.security.AuthenticationService;
 import com.cinema.service.CinemaHallService;
 import com.cinema.service.MovieService;
 import com.cinema.service.MovieSessionService;
-import com.cinema.service.OrdersService;
 import com.cinema.service.ShoppingCartService;
 import com.cinema.service.UserService;
 import java.time.LocalDate;
@@ -87,14 +85,5 @@ public class Main {
         User userA = userService.findByEmail("a@gmail.com").get();
         shoppingCartService.addSession(afternoonSession, userA);
         shoppingCartService.clear(shoppingCartService.getByUser(userA));
-
-        OrdersService ordersService = (OrdersService) injector.getInstance(OrdersService.class);
-        Order order = ordersService.completeOrder(shoppingCartService
-                .getByUser(userMa).getTickets(), userMa);
-        shoppingCartService.addSession(afternoonSession, userMa);
-        Order orderSecond = ordersService.completeOrder(shoppingCartService
-                .getByUser(userMa).getTickets(), userMa);
-        ordersService.getOrderHistory(userMa).forEach(System.out::println);
-
     }
 }
