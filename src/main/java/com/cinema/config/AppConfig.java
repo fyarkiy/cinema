@@ -7,6 +7,7 @@ import com.cinema.model.Order;
 import com.cinema.model.ShoppingCart;
 import com.cinema.model.Ticket;
 import com.cinema.model.User;
+import java.util.Properties;
 import javax.sql.DataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
@@ -15,8 +16,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
-
-import java.util.Properties;
 
 @Configuration
 @PropertySource("classpath:db.properties")
