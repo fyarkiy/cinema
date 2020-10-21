@@ -1,17 +1,19 @@
 package com.cinema.service.impl;
 
 import com.cinema.dao.UserDao;
-import com.cinema.lib.Inject;
-import com.cinema.lib.Service;
 import com.cinema.model.User;
 import com.cinema.service.UserService;
 import com.cinema.util.HashUtil;
 import java.util.Optional;
+import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @Inject
     private UserDao userDao;
+
+    public UserServiceImpl(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
     @Override
     public User add(User user) {

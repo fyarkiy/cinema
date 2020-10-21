@@ -2,22 +2,28 @@ package com.cinema.dao.impl;
 
 import com.cinema.dao.UserDao;
 import com.cinema.exception.DataProcessingException;
-import com.cinema.lib.Dao;
 import com.cinema.model.User;
-import com.cinema.util.HibernateUtil;
 import java.util.Optional;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
+import org.springframework.stereotype.Repository;
 
-@Dao
+@Repository
 public class UserDaoImpl implements UserDao {
+    private SessionFactory sessionFactory;
+
+    public UserDaoImpl(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
     @Override
     public User add(User user) {
         Transaction transaction = null;
         Session session = null;
         try {
-            session = HibernateUtil.getSessionFactory().openSession();
+            session = sessionFactory.openSession();
             transaction = session.beginTransaction();
             session.save(user);
             transaction.commit();
@@ -36,7 +42,7 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public Optional<User> findByEmail(String email) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (Session session = sessionFactory.openSession()) {
             Query<User> userQuery =
                     session.createQuery("from User u where u.email =: email", User.class);
             userQuery.setParameter("email", email);
