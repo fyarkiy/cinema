@@ -1,6 +1,6 @@
 package com.cinema;
 
-import com.cinema.lib.Injector;
+import com.cinema.config.AppConfig;
 import com.cinema.model.CinemaHall;
 import com.cinema.model.Movie;
 import com.cinema.model.MovieSession;
@@ -15,15 +15,17 @@ import com.cinema.service.ShoppingCartService;
 import com.cinema.service.UserService;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class Main {
-    private static Injector injector = Injector.getInstance("com.cinema");
 
     public static void main(String[] args) {
+        AnnotationConfigApplicationContext context =
+                new AnnotationConfigApplicationContext(AppConfig.class);
+        MovieService movieService = context.getBean(MovieService.class);
         Movie fastFurious = new Movie();
         fastFurious.setTitle("Fast and Furious");
         fastFurious.setDescritpion("action");
-        MovieService movieService = (MovieService) injector.getInstance(MovieService.class);
         movieService.add(fastFurious);
         Movie bugs = new Movie();
         bugs.setTitle("Bugs");
@@ -33,8 +35,7 @@ public class Main {
         CinemaHall redHall = new CinemaHall();
         redHall.setCapacity(100);
         redHall.setDescription("Red");
-        CinemaHallService cinemaHallService = (CinemaHallService) injector
-                .getInstance(CinemaHallService.class);
+        CinemaHallService cinemaHallService = context.getBean(CinemaHallService.class);
         cinemaHallService.add(redHall);
 
         CinemaHall blueHall = new CinemaHall();
@@ -46,8 +47,7 @@ public class Main {
         morningSession.setCinemaHall(redHall);
         morningSession.setMovie(fastFurious);
         morningSession.setShowTime(LocalDateTime.of(2020, 10, 10, 10, 00, 00));
-        MovieSessionService movieSessionService = (MovieSessionService) injector
-                .getInstance(MovieSessionService.class);
+        MovieSessionService movieSessionService = context.getBean(MovieSessionService.class);
         movieSessionService.add(morningSession);
 
         MovieSession afternoonSession = new MovieSession();
@@ -72,15 +72,14 @@ public class Main {
         cinemaHallService.getAll().forEach(System.out::println);
         movieSessionService.findAvailableSessions(1L, LocalDate.of(2020, 10, 10))
                 .forEach(System.out::println);
-
         AuthenticationService authenticationService =
-                (AuthenticationService) injector.getInstance(AuthenticationService.class);
+                context.getBean(AuthenticationService.class);
         authenticationService.register("a@gmail.com", "abcd");
         authenticationService.register("ma@gmail.com", "dcba");
-        UserService userService = (UserService) injector.getInstance(UserService.class);
+        UserService userService = context.getBean(UserService.class);
         User userMa = userService.findByEmail("ma@gmail.com").get();
         ShoppingCartService shoppingCartService =
-                (ShoppingCartService) injector.getInstance((ShoppingCartService.class));
+                context.getBean(ShoppingCartService.class);
         shoppingCartService.addSession(morningSession, userMa);
         shoppingCartService.addSession(morningSession, userMa);
 
@@ -88,13 +87,12 @@ public class Main {
         shoppingCartService.addSession(afternoonSession, userA);
         shoppingCartService.clear(shoppingCartService.getByUser(userA));
 
-        OrdersService ordersService = (OrdersService) injector.getInstance(OrdersService.class);
+        OrdersService ordersService = context.getBean(OrdersService.class);
         Order order = ordersService.completeOrder(shoppingCartService
                 .getByUser(userMa).getTickets(), userMa);
         shoppingCartService.addSession(afternoonSession, userMa);
         Order orderSecond = ordersService.completeOrder(shoppingCartService
                 .getByUser(userMa).getTickets(), userMa);
         ordersService.getOrderHistory(userMa).forEach(System.out::println);
-
     }
 }
