@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class TicketDaoImpl implements TicketDao {
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     public TicketDaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;

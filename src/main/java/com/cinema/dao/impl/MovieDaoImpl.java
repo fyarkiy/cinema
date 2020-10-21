@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class MovieDaoImpl implements MovieDao {
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     public MovieDaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;

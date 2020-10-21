@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class ShoppingCartDaoImpl implements ShoppingCartDao {
-    private SessionFactory sessionFactory;
+    private final SessionFactory sessionFactory;
 
     public ShoppingCartDaoImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
