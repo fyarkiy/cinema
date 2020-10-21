@@ -1,7 +1,5 @@
 package com.cinema.config;
 
-import javax.sql.DataSource;
-
 import com.cinema.model.CinemaHall;
 import com.cinema.model.Movie;
 import com.cinema.model.MovieSession;
@@ -9,6 +7,7 @@ import com.cinema.model.Order;
 import com.cinema.model.ShoppingCart;
 import com.cinema.model.Ticket;
 import com.cinema.model.User;
+import javax.sql.DataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -42,21 +41,18 @@ public class AppConfig {
         dataSource.setPassword(environment.getProperty("db.password"));
         return dataSource;
     }
+
     @Bean
     public LocalSessionFactoryBean getFactoryBean() {
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
         factoryBean.setDataSource(getDataSource());
-        Properties properties =new Properties();
+        Properties properties = new Properties();
         properties.put("hibernate.show.sql", environment.getProperty("hibernate.show.sql"));
         properties.put("hibernate.hbm2ddl.auto", environment.getProperty("hibernate.hbm2ddl.auto"));
         factoryBean.setHibernateProperties(properties);
-        factoryBean.setAnnotatedClasses(CinemaHall.class);
-        factoryBean.setAnnotatedClasses(Movie.class);
-        factoryBean.setAnnotatedClasses(MovieSession.class);
-        factoryBean.setAnnotatedClasses(Order.class);
-        factoryBean.setAnnotatedClasses(ShoppingCart.class);
-        factoryBean.setAnnotatedClasses(Ticket.class);
-        factoryBean.setAnnotatedClasses(User.class);
+
+        factoryBean.setAnnotatedClasses(CinemaHall.class, Movie.class, MovieSession.class,
+                Order.class, ShoppingCart.class, Ticket.class, User.class);
         return factoryBean;
     }
 }
