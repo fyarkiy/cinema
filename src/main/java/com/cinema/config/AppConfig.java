@@ -1,12 +1,5 @@
 package com.cinema.config;
 
-import com.cinema.model.CinemaHall;
-import com.cinema.model.Movie;
-import com.cinema.model.MovieSession;
-import com.cinema.model.Order;
-import com.cinema.model.ShoppingCart;
-import com.cinema.model.Ticket;
-import com.cinema.model.User;
 import java.util.Properties;
 import javax.sql.DataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
