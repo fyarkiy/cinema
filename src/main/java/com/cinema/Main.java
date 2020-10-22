@@ -62,7 +62,6 @@ public class Main {
         morningSessionAt13.setShowTime(LocalDateTime.of(2020, 10, 10, 13, 00, 00));
         movieSessionService.add(morningSessionAt13);
 
-
         MovieSession tomorrowSession = new MovieSession();
         tomorrowSession.setCinemaHall(redHall);
         tomorrowSession.setMovie(fastFurious);
