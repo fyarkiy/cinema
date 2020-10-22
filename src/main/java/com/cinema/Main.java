@@ -30,6 +30,8 @@ public class Main {
         fastFurious.setDescritpion("action");
         movieService.add(fastFurious);
         Movie bugs = new Movie();
+
+
         bugs.setTitle("Bugs");
         bugs.setDescritpion("Animation");
         movieService.add(bugs);
