@@ -6,4 +6,6 @@ public interface GenericService<T> {
     T add(T entity);
 
     List<T> getAll();
+
+    T getById(Long id);
 }
